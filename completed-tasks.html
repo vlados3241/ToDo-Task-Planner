@@ -1,0 +1,50 @@
+<!-- completed-tasks.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style-compl-tasks.css">
+  <title>Completed Tasks</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.js"></script>
+</head>
+<body>
+
+  <div id="completed-app"></div>
+
+  <script>
+    const CompletedTasks = {
+      data() {
+        return {
+          completedTasks: JSON.parse(localStorage.getItem('completedTasks')) || [],
+        };
+      },
+      methods: {
+        returnToMainList(task) {
+          const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+          tasks.push({ ...task, id: Date.now() });
+          localStorage.setItem('tasks', JSON.stringify(tasks));
+
+          this.completedTasks = this.completedTasks.filter(t => t.id !== task.id);
+          localStorage.setItem('completedTasks', JSON.stringify(this.completedTasks));
+        }
+      },
+      template: `
+        <div>
+          <h1>Выполненные задачи</h1>
+          <div v-for="task in completedTasks" :key="task.id" class="task">
+            <div>
+              <div><strong>Название:</strong> {{ task.title }}</div>
+              <div><strong>Описание:</strong> {{ task.body }}</div>
+            </div>
+            <button @click="returnToMainList(task)" class="btn">Вернуть в список</button>
+          </div>
+        </div>
+      `,
+    };
+
+    Vue.createApp(CompletedTasks).mount('#completed-app');
+  </script>
+
+</body>
+</html>

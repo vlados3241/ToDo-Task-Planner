@@ -1,0 +1,24 @@
+.task {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 66%;
+    margin-left: 10px;
+    padding: 15px;
+    border: 1px solid black;
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.btn {
+    align-self: center;
+    background-color: #3963FA;
+    border: 0;
+    color: white;
+    border-radius: 5px;
+    height: 40px;
+    margin-right: 5px;
+}
+.compl-tasks{
+  gap: 1px;
+}
